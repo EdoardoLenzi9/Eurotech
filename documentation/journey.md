@@ -40,3 +40,95 @@ source ~/.bash_profile
 
 - [X] Latest OpenJDK
 - [X] Latest Maven
+- [ ] Latest Docker(?)
+- [ ] Jtest
+
+* [Install Docker](https://docs.docker.com/engine/install/debian)
+
+```sh
+sudo apt-get remove docker docker-engine docker.io containerd runc
+sudo apt-get upgrade 
+
+sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+echo \
+  "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+```
+
+### [Run Docker without `sudo`](https://docs.docker.com/engine/install/linux-postinstall/)
+
+```sh
+sudo groupadd docker
+sudo gpasswd -aG $USER docker
+newgrp docker 
+docker run hello-world
+```
+
+## [Init maven project](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html)
+
+```sh
+mvn archetype:generate \
+    -DgroupId=com.eurotech.app \
+    -DartifactId=efilter \
+    -DarchetypeArtifactId=maven-archetype-quickstart \
+    -DarchetypeVersion=1.4 \
+    -DinteractiveMode=false
+```
+
+* `DinteractiveMode=true` enables a [setup wizard](https://howtodoinjava.com/maven/create-java-project-maven/)
+* `DartifactId` project name
+* `DarchetypeArtifactId` [specific configuration of an archetype](https://stackoverflow.com/questions/5137809/what-is-the-purpose-of-the-archetypeartifactid)
+  * list of archetype-artefact-ids (templates) [here](https://maven.apache.org/guides/introduction/introduction-to-archetypes.html)
+
+```
+mvn test
+mvn package
+```
+
+## Debugger - [vscode](https://code.visualstudio.com/docs/java/java-debugging)
+
+* *Debugger for Java* extension
+* *Language support for Java* extension
+* `.vscode/launch.json`:
+
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug current file",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug Efilter",
+            "request": "launch",
+            "mainClass": "com.eurotech.app.App",
+            "projectName": "efilter"
+        }
+    ]
+}
+```
+
+---
+Now we have also
+
+- [X] debugger
+- [X] maven
+- [X] docker
+
+😄🍻
+---
