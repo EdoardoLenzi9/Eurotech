@@ -42,4 +42,18 @@ public class FilterTest
         assertFalse(filter.matches(_user));
     }
 
+    /* TODO test
+        $filter=contains(key)
+
+        $filter=contains(key, 'value')
+        $filter=key eq value
+        $filter=key gt value
+        $filter=key lt value
+
+        // custom, not present in odata
+        $filter=regex(key, regex) 
+
+        and, or, not and parenthesization
+    */
+
 }
