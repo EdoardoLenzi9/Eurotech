@@ -36,15 +36,20 @@ public class FilterTest
         filter = new Filter("$filter=contains(firstname,jack)");    
         assertFalse(filter.matches(_user));
     }
-
     
+    @Test
+    public void shouldFilterManageCaseSensitivity()
+    {
+        IFilter filter = new Filter("$filter=contains(firstname, JoE)");    
+        assertTrue(filter.matches(_user));
+    }
+
     @Test
     public void shouldFilterByRegex()
     {
         IFilter filter = new Filter("$filter=regex(firstname, 'j.e')");    
         assertTrue(filter.matches(_user));
     }
-    
 
     @Test
     public void shouldFilterByTreshold()

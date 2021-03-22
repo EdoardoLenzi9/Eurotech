@@ -63,7 +63,7 @@ public class FilterEvaluator extends FilterBaseVisitor<Boolean>
         if(!_resource.containsKey(key)){
             throw new IllegalArgumentException("Unknown key " + key);
         }
-        return _resource.get(key).equals(value);
+        return _resource.get(key).toLowerCase().equals(value.toLowerCase());
     }
 
     @Override
