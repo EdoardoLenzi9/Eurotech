@@ -184,3 +184,9 @@ grun Filter start -gui
     ^D
 ```
 
+# Day 3
+
+- [X] grammar completed
+- [X] visitor implementation completed
+- [X] tests completed
+- [ ] wiki

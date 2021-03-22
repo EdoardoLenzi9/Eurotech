@@ -59,8 +59,68 @@ user.put(“surname”,       “Bloggs”);
 user.put(“role”,          “administrator”);
 user.put(“age”,           “35”);
 // Create a filter which matches all administrators older than 30:
-IFilter filter = new Filter("$filter=(age eq 35) and not not (contains(firstname)) and ((regex(surname, '[^c]*')))"); // Create a filter using your API.
+IFilter filter = new Filter("$filter=(age ge 30) and (contains(role, administrator))"); // Create a filter using your API.
 assert filter.matches(user);      // Filter should match.
 user.put(“age”,           “25”);
 assert !filter.matches(user);     // Filter should not match.
 ```
+
+--- 
+
+# Get started
+
+This library was written in Java - [openjdk-16](https://openjdk.java.net/)
+
+```
+openjdk 16 2021-03-16
+OpenJDK Runtime Environment (build 16+36-2231)
+OpenJDK 64-Bit Server VM (build 16+36-2231, mixed mode, sharing)
+```
+
+The automated building tool/package manager is [Apache Maven](https://maven.apache.org/)
+
+```
+Apache Maven 3.6.3 (cecedd343002696d0abb50b32b541b8a6ba2883f)
+Java version: 16, vendor: Oracle Corporation, runtime: jdk-16
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "4.19.0-14-amd64", arch: "amd64", family: "unix"
+```
+
+The parser was implemented in [Antlr4](https://www.antlr.org/) using the visitor pattern
+
+```
+ANTLR Parser Generator  Version 4.9.2
+```
+
+> Download and install the latest versions of open-jdk, antlr4 and maven in order to setup the project
+
+
+## Clone, Tests and build
+
+Using the following command you will clone the repository, build and run the unit tests
+
+```sh
+git clone https://github.com/EdoardoLenzi9/Eurotech.git
+cd Eurotech/efilter
+mvn package
+```
+
+## Extend/update the grammar
+
+In order to extend/update the grammar use this script (this shouldn't work on windows...this is a mok!)
+
+```sh
+cd scripts
+sh compile-grammar.sh
+```
+
+In order to test a new grammar and generate the AST type:
+
+```sh
+cd scripts
+sh test-grammar.sh
+$filter=(age eq 35) and not not (contains(firstname)) and ((regex(surname, '[^c]*')))
+^D
+```
+
+![spanshot](documentation/snap.jpg)
