@@ -59,7 +59,7 @@ user.put(“surname”,       “Bloggs”);
 user.put(“role”,          “administrator”);
 user.put(“age”,           “35”);
 // Create a filter which matches all administrators older than 30:
-Filter filter = ???;              // Create a filter using your API.
+IFilter filter = new Filter("$filter=(age eq 35) and not not (contains(firstname)) and ((regex(surname, '[^c]*')))"); // Create a filter using your API.
 assert filter.matches(user);      // Filter should match.
 user.put(“age”,           “25”);
 assert !filter.matches(user);     // Filter should not match.

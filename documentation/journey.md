@@ -132,3 +132,55 @@ Now we have also
 
 😄🍻
 ---
+
+## Solution
+
+The string serialization of a filter may follow [Open Data Standard](https://www.odata.org/libraries) (odata) and implemented in a web service using [Apach Olingo library](http://olingo.incubator.apache.org).
+
+Let cosider the requirements:
+
+* boolean literals (True False)
+* boolean operators (AND, OR, NOT)
+* comparison operators (care should be taken to deal with missing properties):
+    * property is **present**
+    * property is **equal** to some value
+    * property is **less** than some value
+    * property is **greater** than some value
+    * property **matches** a regular expression ([unsupported](https://stackoverflow.com/questions/13525788/regular-expressions-in-odata-filter-conditions))
+
+```
+$filter=contains(key)
+
+$filter=contains(key, 'value')
+$filter=key eq value
+$filter=key gt value
+$filter=key lt value
+
+// custom, not present in odata
+$filter=regex(key, regex) 
+
+and or not and parenthesization
+```
+
+# Day 2
+
+## [antlr maven plugin](https://www.antlr.org/api/maven-plugin/latest/plugin-info.html)
+
+The grammar (`.g4`) should be stored in `/src/main/antlr4/...` ([see this](https://www.antlr.org/api/maven-plugin/latest/index.html)).
+
+The grammar is compiled into Java native code with:
+
+```
+mvn antlr4:antlr4
+```
+
+[visitor pattern](https://stackoverflow.com/questions/23092081/antlr4-visitor-pattern-on-simple-arithmetic-example)
+
+```
+antlr4 Filter.g4
+javac Filter*.java
+grun Filter start -gui
+    $filter=contains(firstname)
+    ^D
+```
+
