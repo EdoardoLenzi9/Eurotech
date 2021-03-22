@@ -29,12 +29,7 @@ public class FilterTest
     {
         Filter filter = new Filter("$filter=contains(firstname)");    
         assertTrue(filter.matches(_user));
-    }
-
-    @Test
-    public void shouldFilterByContainsKeyValue()
-    {
-        Filter filter = new Filter("$filter=contains(firstname, joe)");    
+        filter = new Filter("$filter=contains(firstname, joe)");    
         assertTrue(filter.matches(_user));
         filter = new Filter("$filter=contains(firstname,joe)");    
         assertTrue(filter.matches(_user));
@@ -42,6 +37,30 @@ public class FilterTest
         assertFalse(filter.matches(_user));
     }
 
+    /*
+    @Test
+    public void shouldFilterByRegex()
+    {
+        Filter filter = new Filter("$filter=regex(firstname, j.e)");    
+        assertTrue(filter.matches(_user));
+    }
+    */
+
+    @Test
+    public void shouldFilterByTreshold()
+    {
+        Filter filter = new Filter("$filter=age eq 35");    
+        assertTrue(filter.matches(_user));
+        filter = new Filter("$filter=age gt 34");    
+        assertTrue(filter.matches(_user));
+        filter = new Filter("$filter=age lt 36");    
+        assertTrue(filter.matches(_user));
+        filter = new Filter("$filter=age gt 36");    
+        assertFalse(filter.matches(_user));
+        filter = new Filter("$filter=age lt 34");    
+        assertFalse(filter.matches(_user));
+    }
+    
     /* TODO test
         $filter=contains(key)
 

@@ -15,7 +15,7 @@ cond   : left=cond op=(' and '|' or ') right=cond            #andOrExpr
        ;
 
 
-STR               : ('a'..'z')+ ;
+STR               : ('a'..'z'|'A'..'Z'|'0'..'9')+ ;
 
 fragment RGX      : (.)+ ;
 REGEX             : ('\'' RGX '\'');

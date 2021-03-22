@@ -1,5 +1,4 @@
-package com.eurotech.filter.parser;
-// Generated from ../efilter/src/main/java/com/eurotech/filter/parser/Filter.g4 by ANTLR 4.9.2
+// Generated from ../efilter/src/main/antlr4/com/eurotech/filter/Filter.g4 by ANTLR 4.9.2
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
