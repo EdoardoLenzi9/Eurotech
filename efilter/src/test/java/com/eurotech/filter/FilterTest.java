@@ -73,5 +73,19 @@ public class FilterTest
         filter = new Filter("$filter=not (age gt 35) or (age lt 35)");    
         assertTrue(filter.matches(_user));
     }
-    
+ 
+    @Test
+    public void shouldFilterByEvilQuery()
+    {
+        Filter filter = new Filter("$filter=(age eq 35) and not not (contains(firstname)) and ((regex(surname, '[^c]*')))");    
+        assertTrue(filter.matches(_user));
+    }
+
+    @Test
+    public void shouldStringifyFilterCorrectly()
+    {
+        String query = "$filter=(age eq 35) and not not (contains(firstname)) and ((regex(surname, '[^c]*')))";
+        Filter filter = new Filter(query);    
+        assertEquals(query, filter.stringify());
+    }
 }
