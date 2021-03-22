@@ -1,8 +1,8 @@
-grammar Expressions;
+grammar Filter;
 
 start  : filter ;
 
-filter : '$filter=' cond;
+filter : '$filter=' cond;                                    
 
 cond   : left=cond op=(' and '|' or ') right=cond            #andOrExpr
        | 'contains(' key=cond ',' value=cond ')'             #containsKeyValueExpr
