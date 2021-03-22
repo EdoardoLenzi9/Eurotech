@@ -7,9 +7,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
-/**
- * Unit test for simple App.
- */
+
 public class FilterTest 
 {
     
@@ -93,4 +91,18 @@ public class FilterTest
         IFilter filter = new Filter(query);    
         assertEquals(query, filter.stringify());
     }
+
+    @Test
+    public void shouldFilterCorrectlyAfterUpdatingResource()
+    {
+        // Create a filter using your API.
+        IFilter filter = new Filter("$filter=(age eq 35) and not not (contains(firstname)) and ((regex(surname, '[^c]*')))"); 
+        // Filter should match.
+        assertTrue(filter.matches(_user));      
+        // Update resource
+        _user.put("age", "25");
+        // Filter mismatch
+        assertFalse(filter.matches(_user));
+    }
+
 }
