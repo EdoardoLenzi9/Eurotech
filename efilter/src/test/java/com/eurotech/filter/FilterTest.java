@@ -27,7 +27,7 @@ public class FilterTest
     @Test
     public void shouldFilterByContains()
     {
-        Filter filter = new Filter("$filter=contains(firstname)");    
+        IFilter filter = new Filter("$filter=contains(firstname)");    
         assertTrue(filter.matches(_user));
         filter = new Filter("$filter=contains(firstname, joe)");    
         assertTrue(filter.matches(_user));
@@ -41,7 +41,7 @@ public class FilterTest
     @Test
     public void shouldFilterByRegex()
     {
-        Filter filter = new Filter("$filter=regex(firstname, 'j.e')");    
+        IFilter filter = new Filter("$filter=regex(firstname, 'j.e')");    
         assertTrue(filter.matches(_user));
     }
     
@@ -49,7 +49,7 @@ public class FilterTest
     @Test
     public void shouldFilterByTreshold()
     {
-        Filter filter = new Filter("$filter=age eq 35");    
+        IFilter filter = new Filter("$filter=age eq 35");    
         assertTrue(filter.matches(_user));
         filter = new Filter("$filter=age gt 34");    
         assertTrue(filter.matches(_user));
@@ -64,7 +64,7 @@ public class FilterTest
     @Test
     public void shouldFilterByBooleanAlgebra()
     {
-        Filter filter = new Filter("$filter=(age eq 35) and (age gt 30)");    
+        IFilter filter = new Filter("$filter=(age eq 35) and (age gt 30)");    
         assertTrue(filter.matches(_user));
         filter = new Filter("$filter=(age gt 34) or (age lt 34)");    
         assertTrue(filter.matches(_user));
@@ -77,7 +77,7 @@ public class FilterTest
     @Test
     public void shouldFilterByEvilQuery()
     {
-        Filter filter = new Filter("$filter=(age eq 35) and not not (contains(firstname)) and ((regex(surname, '[^c]*')))");    
+        IFilter filter = new Filter("$filter=(age eq 35) and not not (contains(firstname)) and ((regex(surname, '[^c]*')))");    
         assertTrue(filter.matches(_user));
     }
 
@@ -85,7 +85,7 @@ public class FilterTest
     public void shouldStringifyFilterCorrectly()
     {
         String query = "$filter=(age eq 35) and not not (contains(firstname)) and ((regex(surname, '[^c]*')))";
-        Filter filter = new Filter(query);    
+        IFilter filter = new Filter(query);    
         assertEquals(query, filter.stringify());
     }
 }
