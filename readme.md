@@ -107,7 +107,7 @@ mvn package
 
 ## Extend/update the grammar
 
-In order to extend/update the grammar use this script (this shouldn't work on windows...this is a mok!)
+In order to extend/update the grammar use this script (this shouldn't work on windows...this is a mok and I'm a winzoz hater!)
 
 ```sh
 cd scripts
@@ -124,3 +124,30 @@ $filter=(age eq 35) and not not (contains(firstname)) and ((regex(surname, '[^c]
 ```
 
 ![spanshot](documentation/snap.jpg)
+
+
+## Usage examples
+
+```java
+// Create a filter using your API.
+IFilter filter = new Filter("$filter=(age eq 35) and not not (contains(firstname)) and ((regex(surname, '[^c]*')))"); 
+// Filter should match.
+assertTrue(filter.matches(_user));      
+// Update resource
+_user.put("age", "25");
+// Filter mismatch
+assertFalse(filter.matches(_user));
+```
+
+For additional examples see `./efilter/src/test/java/com/eurotech/filter/FilterTest.java`
+
+
+## Final considerations
+
+### Extensibility
+
+This approach is 100% extensible simply implementing new rules for the grammar and upating consistently the evaluator (`.efilter/src/main/java/com/eurotech/filter/FilterEvaluator.java`).
+
+It is possible and much more interesting working on classes instead of Maps using reflection.
+
+It is also possible to embed this library in a Docker image but this not really useful in this case since this libray has only a Java interface `IFilter` but not a REST API...  
