@@ -81,6 +81,7 @@ public class FilterEvaluator extends FilterBaseVisitor<Boolean>
     {
         String key = ctx.key.getText();
         String regex = ctx.regex.getText();
+        regex = regex.substring(1,regex.length()-1);
         if(!_resource.containsKey(key)){
             throw new IllegalArgumentException("Unknown key " + key);
         }
